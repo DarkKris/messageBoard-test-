@@ -75,7 +75,7 @@
                     }
                 }
             }
-            return view(login/register);//定位到当前模块下的view文件夹下的login文件夹下的register.html
+            return view('login/register');//定位到当前模块下的view文件夹下的login文件夹下的register.html
         }
 
         //退出登录并摧毁登录数据
