@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="df8e096f-4516-4838-b2ae-8cb6dcdcf70b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tp5/application/Home/controller/Login.php" afterPath="$PROJECT_DIR$/tp5/application/Home/controller/Login.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,8 +27,8 @@
       <file leaf-file-name="Login.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tp5/application/Home/controller/Login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+            <state relative-caret-position="210">
+              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
               <folding>
                 <element signature="e#6#91#0#PHP" expanded="true" />
                 <element signature="e#131#146#0#PHP" expanded="true" />
@@ -195,12 +195,12 @@
       <option name="presentableId" value="Default" />
       <updated>1509167901250</updated>
       <workItem from="1509167903131" duration="2871000" />
-      <workItem from="1509192198326" duration="7098000" />
+      <workItem from="1509192198326" duration="7242000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9969000" />
+    <option name="totallyTimeSpent" value="10113000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1366" height="743" extended-state="0" />
@@ -400,8 +400,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tp5/application/Home/controller/Login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="5" lean-forward="false" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        <state relative-caret-position="210">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
           <folding>
             <element signature="e#6#91#0#PHP" expanded="true" />
             <element signature="e#131#146#0#PHP" expanded="true" />

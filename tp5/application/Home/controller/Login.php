@@ -23,8 +23,8 @@
                 if($result)
                 {
                     session_start();
-                    session('user.userId',$result[userId]);//使用session保留登录信息
-                    session('user.username',$result[name]);
+                    session('user.userId',$result['userId']);//使用session保留登录信息
+                    session('user.username',$result['name']);
                     $this->success('登录成功',url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
                 }else{
                     $this->error('用户名或密码错误');
@@ -33,4 +33,6 @@
             return view();//如果没有登录就跳转至login.html
         }
     }
+
+
 ?>
