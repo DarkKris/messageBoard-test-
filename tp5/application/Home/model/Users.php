@@ -10,10 +10,12 @@
     use think\Db;
     class Users extends Model
     {
-        protected $table='users';
-        //关联users table与comments table
+        protected $table='users';//制定当前操作的数据表
+
         public function comm()
         {
+            //hasMany('关联模型名','外键名','主键名',['模型别名定义']);
+            //一对多关联users表与comments表
             return $this->hasMany('comments','UserId','UserId');
         }
         //用户登录验证
