@@ -15,7 +15,9 @@ app\Home
 	|	|->Users.php
 	|	|->Message.php
 	|->controller
-		|->Login.php
+	|	|->Login.php
+	|->view
+		|->Login.html
 ``` 
 
 #### continue:
