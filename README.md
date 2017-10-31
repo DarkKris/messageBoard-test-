@@ -23,5 +23,5 @@ app\Home
 #### continue:
 
 ```php
-nothing
+    dealing with index.html
 ```
