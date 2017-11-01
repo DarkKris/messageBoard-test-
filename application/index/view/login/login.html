@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Account Login</title>
+</head>
+<body>
+<form action="login" method="post">
+    <table cellpadding="10" cellspacing="0" border="1" width="450" align="center"><!--表格填充／表格间距-->
+
+        <tr>                                    <!--<tr>标签包含一行内容-->
+            <th colspan="2">Account Login</th>  <!--colspan设置跨列数;<th>标签设置表首栏-->
+        </tr>
+
+        <tr>
+            <td>User Name</td>
+            <td><input type="text" name="username" required="required"> *</td>
+        </tr>
+
+        <tr>
+            <td>Password</td>
+            <td><input type="password" name="password" required="required"> *</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <input type="submit" name="login" value="Sign up">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
+                <a href="register">Sign in</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
