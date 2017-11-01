@@ -18,10 +18,11 @@ app\Home
 	|	|->Login.php
 	|->view
 		|->Login.html
+		|->register.html
 ``` 
 
 #### continue:
 
 ```php
-    dealing with index.html
+    studying
 ```
