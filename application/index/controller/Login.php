@@ -24,8 +24,9 @@ class Login extends Controller
             {
                 session_start();
                 session('user.userId',$result['userId']);//使用session保留登录信息
-                session('user.username',$result['name']);
+                session('user.name',$result['name']);
                 $this->success('登录成功',url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
+                //echo 'success';
             }else{
                 $this->error('用户名或密码错误');
             }
@@ -64,7 +65,7 @@ class Login extends Controller
                 $this -> error('用户名已存在');
             }else{
                 $user -> data([                     //将填写的数据保存至数据库
-                    'username' => $username,
+                    'name' => $username,
                     'password' => $password,
                     'createdAt'=> time()
                 ]);
