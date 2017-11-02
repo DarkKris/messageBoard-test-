@@ -22,13 +22,15 @@ class Login extends Controller
             $result = $users->checkUser(input('post.username'),input('post.password'));
             if($result)
             {
-                session_start();
+                if(!isset($_SESSION))session_start();
                 session('user.userId',$result['userId']);//使用session保留登录信息
                 session('user.name',$result['name']);
                 $this->success('登录成功',url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
                 //echo 'success';
             }else{
-                $this->error('用户名或密码错误');
+                $this->assign("iserror",true);
+                $this->assign("username",input('post.username'));
+                $this->display('login');
             }
         }
         return view();//如果没有登录就跳转至login.html
@@ -62,7 +64,9 @@ class Login extends Controller
             $result = $user -> findUser($username);
             if(!empty($result))
             {
-                $this -> error('用户名已存在');
+                $this->assign("iserror",true);
+                $this->assign("username",input('post.username'));
+                $this->display('register');
             }else{
                 $user -> data([                     //将填写的数据保存至数据库
                     'name' => $username,

@@ -5,12 +5,12 @@
 
 ***
 
-## schedule
+## Schedule
 
 #### complete:
 
 ```php
-app\Home
+app\index
 	|->model
 	|	|->Users.php
 	|	|->Message.php
@@ -24,5 +24,6 @@ app\Home
 #### continue:
 
 ```php
-    studying
+    polishing the function of Login and Register
+    building message list
 ```

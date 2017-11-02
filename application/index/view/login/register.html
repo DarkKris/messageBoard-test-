@@ -13,7 +13,7 @@
 
         <tr>
             <td>User Name</td>
-            <td><input name="username" type="text" required="required"> *</td>
+            <td><input name="username" type="text" required="required" value="{:isset($username)?$username:$pr=''}"> *</td>
         </tr>
 
         <tr>
@@ -34,5 +34,6 @@
             </td>
         </tr>
 </form>
+{:isset($iserror)?$pr='<p align="center" style="color: #EE0000">User name have used by others !</p>':$pr=''; }
 </body>
 </html>

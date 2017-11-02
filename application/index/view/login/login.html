@@ -14,12 +14,12 @@
 
         <tr>
             <td>User Name</td>
-            <td><input type="text" name="username" required="required"> *</td>
+            <td><input type="text" name="username" required="required" style="width: 250px" value="{:isset($username)?$username:$pr='Please enter your account'}" > *</td>
         </tr>
 
         <tr>
             <td>Password</td>
-            <td><input type="password" name="password" required="required"> *</td>
+            <td><input type="password" name="password" style="width: 250px" required="required"> *</td>
         </tr>
         <tr>
             <td colspan="2" align="center">
@@ -30,5 +30,6 @@
         </tr>
     </table>
 </form>
+{:isset($iserror)?$pr='<p align="center" style="color: #EE0000">User name or Password is false !</p>':$pr=''; }
 </body>
 </html>
