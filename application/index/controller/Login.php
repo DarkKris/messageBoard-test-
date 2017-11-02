@@ -66,7 +66,7 @@ class Login extends Controller
             }else{
                 $user -> data([                     //将填写的数据保存至数据库
                     'name' => $username,
-                    'password' => $password,
+                    'password' => md5($password),
                     'createdAt'=> time()
                 ]);
                 $a = $user -> save();//save()返回写入的记录数
