@@ -5,24 +5,29 @@
 
 ***
 
-## schedule
+## Schedule
 
 #### complete:
 
 ```php
-app\Home
+app\index
 	|->model
 	|	|->Users.php
 	|	|->Message.php
 	|->controller
 	|	|->Login.php
+	|   |->Messages.php
 	|->view
-		|->Login.html
-		|->register.html
+	    |->login
+		|   |->Login.html
+		|   |->register.html
+		|->message
+		    |->messagelst.html
 ``` 
 
 #### continue:
 
 ```php
-    studying
+    fixing the problem of error displaying in Register.html
+    polishing message list
 ```

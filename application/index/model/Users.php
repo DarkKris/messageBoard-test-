@@ -16,14 +16,14 @@ class Users extends Model
     {
         //hasMany('关联模型名','外键名','主键名',['模型别名定义']);
         //一对多关联users表与comments表
-        return $this->hasMany('comments','UserId','UserId');
+        return $this->hasMany('message','userId','userId');
     }
     //用户登录验证
     //  $id 用户名
     //  $pw 密码
     public function checkUser($id,$pw)
     {
-        return Db::name('users')->where(array('name'=>$id,'password'=>$pw))->find();
+        return Db::name('users')->where(array('name'=>$id,'password'=>md5($pw)))->find();
     }
     //检测用户名是否已经使用过(注册时)
     //  $username 注册时输入的用户名

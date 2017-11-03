@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message display</title>
+</head>
+<body>
+<div align="center"><a href="{:url('Login/loginout')}">退出登录</a></div>
+{volist name='list' id='infor'}
+<table border="1" align="center" width="650" cellpadding="10" cellspacing="0">
+    <tr>
+        <th>UserName</th>
+        <th>Content</th>
+        <th>Time</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td>{$infor.name}</td>
+        <td>{$infor.content}</td>
+        <td>{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
+    </tr>
+</table>
+{/volist}
+<form action="{:url('index/Messages/savemsg')}" method="post">
+    <table border="1" align="center" width="650" cellpadding="10" cellspacing="0">
+        <tr>
+            <th colspan="2">Post Message</th>
+        </tr>
+
+        <tr>
+            <td colspan="2"><textarea name="words" cols="100" rows="10"></textarea></td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <input type="submit" name="send" value="Post">
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <input type="submit" name="reset" value="reset">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
