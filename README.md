@@ -16,14 +16,18 @@ app\index
 	|	|->Message.php
 	|->controller
 	|	|->Login.php
+	|   |->Messages.php
 	|->view
-		|->Login.html
-		|->register.html
+	    |->login
+		|   |->Login.html
+		|   |->register.html
+		|->message
+		    |->messagelst.html
 ``` 
 
 #### continue:
 
 ```php
     fixing the problem of error displaying in Register.html
-    building message list
+    polishing message list
 ```

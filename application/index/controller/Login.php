@@ -45,7 +45,7 @@ class Login extends Controller
     {
         $list=Db::table('users')
             ->alias('user')//指定当前数据表的别名
-            ->join('comments comments','user.userId = comments.userId')
+            ->join('message message','user.userId = message.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
             ->paginate(5);
         $this->assign('list',$list);//assign()模板变量赋值
