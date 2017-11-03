@@ -13,17 +13,22 @@
 
         <tr>
             <td>User Name</td>
-            <td><input name="username" type="text" required="required" value="{:isset($username)?$username:$pr=''}"> *</td>
+            <td><input name="username" type="text" required="required" style="width: 250px" value="{:isset($username)?$username:$pr=''}"> *</td>
         </tr>
 
         <tr>
             <td>Password</td>
-            <td><input name="password" type="password" required="required"> *</td>
+            <td><input name="password" type="password" style="width: 250px" required="required"> *</td>
         </tr>
 
         <tr>
             <td>Confirm</td>
-            <td><input name="repassword" type="password" required="required"> *</td>
+            <td><input name="repassword" type="password" style="width: 250px" required="required"> *</td>
+        </tr>
+
+        <tr>
+            <td>Captcha</td>
+            <td><input name="captcha" type="text" required="required"> * {:captcha_img()}</td>
         </tr>
 
         <tr>
@@ -34,6 +39,6 @@
             </td>
         </tr>
 </form>
-{:isset($iserror)?$pr='<p align="center" style="color: #EE0000">User name have used by others !</p>':$pr=''; }
+{:isset($iserror)?$iserror==1?$pr='<p align="center" style="color: #EE0000">User name or Password is false !</p>':$iserror==2?$pr='<p align="center" style="color: #EE0000">Captcha is false !</p>':$pr='<p align="center" style="color: #EE0000">Entered passwords differ !</p>':$pr=''}
 </body>
 </html>

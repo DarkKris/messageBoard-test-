@@ -24,6 +24,6 @@ app\index
 #### continue:
 
 ```php
-    polishing the function of Login and Register
+    fixing the problem of error displaying in Register.html
     building message list
 ```

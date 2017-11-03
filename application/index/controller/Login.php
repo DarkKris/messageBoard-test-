@@ -19,18 +19,23 @@ class Login extends Controller
         $users = new Users;
         if(request()->isPost())//是否有post请求
         {
-            $result = $users->checkUser(input('post.username'),input('post.password'));
-            if($result)
+            if(!captcha_check(input('post.captcha')))
             {
-                if(!isset($_SESSION))session_start();
-                session('user.userId',$result['userId']);//使用session保留登录信息
-                session('user.name',$result['name']);
-                $this->success('登录成功',url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
-                //echo 'success';
-            }else{
-                $this->assign("iserror",true);
+                $this->assign("iserror",2);
                 $this->assign("username",input('post.username'));
                 $this->display('login');
+            }else {
+                $result = $users->checkUser(input('post.username'), input('post.password'));
+                if ($result) {
+                    if (!isset($_SESSION)) session_start();
+                    session('user.userId', $result['userId']);//使用session保留登录信息
+                    session('user.name', $result['name']);
+                    $this->success('登录成功', url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
+                } else {
+                    $this->assign("iserror", 1);
+                    $this->assign("username", input('post.username'));
+                    $this->display('login');
+                }
             }
         }
         return view();//如果没有登录就跳转至login.html
@@ -56,27 +61,36 @@ class Login extends Controller
             $username = input('post.username');
             $password = input('post.password');
             $repassword = input('post.repassword');
-            if($password!=$repassword)
+            if(!captcha_check(input('post.captcha')))
             {
-                $this -> error('两次输入的密码不一致');
-            }
-            $user = new Users;
-            $result = $user -> findUser($username);
-            if(!empty($result))
-            {
-                $this->assign("iserror",true);
+                $this->assign("iserror",2);
                 $this->assign("username",input('post.username'));
                 $this->display('register');
-            }else{
-                $user -> data([                     //将填写的数据保存至数据库
-                    'name' => $username,
-                    'password' => md5($password),
-                    'createdAt'=> time()
-                ]);
-                $a = $user -> save();//save()返回写入的记录数
-                if($a > 0)//是否成功写入记录
+            }else {
+                if($password!=$repassword)
                 {
-                    $this -> success("注册成功！",url('login'));//跳转至当前模块当前控制器下的login方法
+                    $this->assign("iserror",3);
+                    $this->assign("username",input('post.username'));
+                    $this->display('register');
+                }else {
+                    $user = new Users;
+                    $result = $user->findUser($username);
+                    if (!empty($result)) {
+                        $this->assign("iserror", 1);
+                        $this->assign("username", input('post.username'));
+                        $this->display('register');
+                    } else {
+                        $user->data([                     //将填写的数据保存至数据库
+                            'name' => $username,
+                            'password' => md5($password),
+                            'createdAt' => time()
+                        ]);
+                        $a = $user->save();//save()返回写入的记录数
+                        if ($a > 0)//是否成功写入记录
+                        {
+                            $this->success("注册成功！", url('login'));//跳转至当前模块当前控制器下的login方法
+                        }
+                    }
                 }
             }
         }
