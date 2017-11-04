@@ -6,40 +6,50 @@
 </head>
 <body>
 <div align="center"><a href="{:url('Login/loginout')}">退出登录</a></div>
-{volist name='list' id='infor'}
-<table border="1" align="center" width="650" cellpadding="10" cellspacing="0">
+<table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
     <tr>
         <th>UserName</th>
         <th>Content</th>
         <th>Time</th>
-        <th></th>
+        <th>Option</th>
     </tr>
-
+    {volist name='list' id='infor'}
     <tr>
-        <td>{$infor.name}</td>
-        <td>{$infor.content}</td>
-        <td>{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
+        <td width="89" align="center">{$infor.name}</td>
+        <td width="378">{$infor.content}</td>
+        <td width="183" align="center">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
+        <td width="50">
+            {eq name="Think.session.users.userId" value="$infor.userId"}
+            <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+            {else/}
+                {eq name="Think.session.users.userId" value="3"}
+                <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+                {/eq}
+            {/eq}
+        </td>
     </tr>
+    {/volist}
 </table>
-{/volist}
+
 <form action="{:url('index/Messages/savemsg')}" method="post">
-    <table border="1" align="center" width="650" cellpadding="10" cellspacing="0">
+    <table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
         <tr>
             <th colspan="2">Post Message</th>
         </tr>
 
         <tr>
-            <td colspan="2"><textarea name="words" cols="100" rows="10"></textarea></td>
+            <td colspan="2" width="700"><textarea name="words" cols="109" rows="10"></textarea></td>
         </tr>
 
         <tr>
-            <td colspan="2">
+            <td colspan="2" align="center">
                 <input type="submit" name="send" value="Post">
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="submit" name="reset" value="reset">
+                <input type="reset"  value="reset">
             </td>
         </tr>
     </table>
 </form>
 </body>
+{$list->render()}
 </html>
