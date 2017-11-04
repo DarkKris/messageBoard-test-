@@ -30,7 +30,7 @@ class Login extends Controller
                     if (!isset($_SESSION)) session_start();
                     session('users.userId', $result['userId']);//使用session保留登录信息
                     session('users.name', $result['name']);
-                    $this->success('登录成功', url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
+                    $this->success('Login success', url('messagelst'));//登录成功，跳转到当前模块当前控制器的messagelst方法
                 } else {
                     $this->assign("iserror", 1);
                     $this->assign("username", input('post.username'));
@@ -47,11 +47,28 @@ class Login extends Controller
             ->alias('users')//指定当前数据表的别名
             ->join('message message','users.userId = message.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
-            ->paginate(5);
+            ->paginate(8);
         $this->assign('list',$list);//assign()模板变量赋值
+        $this->assign('name',session('users.name'));
         return $this->fetch('message/messagelst');//fetch()渲染模版输出,[模块@][控制器/][操作]写法支持跨模块
         //这里将渲染模板输出至当前../view/message/message.html
         //fault?
+    }
+
+    public function usercenter($qname)
+    {
+        $list=Db::table('users')
+            ->alias('users')//指定当前数据表的别名
+            ->where(array('name'=>$qname))
+            ->join('message message','users.userId = message.userId')
+            ->paginate(15);
+        $queryid=Db::table('users')
+            ->where(array('name'=>$qname))
+            ->find();
+        $this->assign('list',$list);
+        $this->assign('id',$queryid['userId']);
+        $this->assign('name',$qname);
+        return $this->fetch('usercenter/usercenter');
     }
 
     public function register()

@@ -15,7 +15,7 @@ class Users extends Model
     public function comm()
     {
         //hasMany('关联模型名','外键名','主键名',['模型别名定义']);
-        //一对多关联users表与comments表
+        //一对多关联users表与message表
         return $this->hasMany('message','userId','userId');
     }
     //用户登录验证

@@ -16,9 +16,9 @@ class Messages extends Controller
     #检测用户是否登录
     public function checkUser()
     {
-        if(!session('user.userId'))
+        if(!session('users.userId'))
         {
-            $this->error('Please sign up firstly !',url('Login/login'));
+            $this->error('Please sign in firstly !',url('Login/login'));
         }
     }
     #保存用户留言
@@ -34,7 +34,7 @@ class Messages extends Controller
             $this->assign('iserror',2);//The number of message limit
             //$this->display('')                    ###***
         }else{
-            $user=Users::get(session('user.userId'));
+            $user=Users::get(session('users.userId'));
             $message = new Message;
             $message->content=input('post.words');
             $message->creatAt=time();

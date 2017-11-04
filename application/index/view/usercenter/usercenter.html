@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Center</title>
+</head>
+<body>
+<table align="center" width="700" cellspacing="0" cellpadding="10" border="1">
+    <tr>
+        <th colspan="3">
+            UserName:{:$name}&nbsp&nbsp&nbsp&nbsp
+            UserID:{:$id}
+            {eq name="Think.session.users.userId" value="$id"}
+            &nbsp&nbsp&nbsp&nbsp<a href="{:url('Login/loginout')}">LoginOut</a>
+            {/eq}
+        </th>
+    </tr>
+
+    <tr>
+        <th>Content</th>
+        <th>Time</th>
+        <th>Option</th>
+    </tr>
+    {volist name='list' id='infor'}
+    <tr>
+        <td width="378">{$infor.content}</td>
+        <td width="183">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
+        <td width="50">
+            {eq name="Think.session.users.userId" value="$infor.userId"}
+            <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+            {else/}
+                {eq name="Think.session.users.userId" value="3"}
+                <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+                {/eq}
+            {/eq}
+        </td>
+    </tr>
+    {/volist}
+</table>
+<div align="center"><a href="{:url('index/login/messagelst')}">Back</a></div>
+</body>
+</html>

@@ -5,7 +5,7 @@
     <title>Message display</title>
 </head>
 <body>
-<div align="center"><a href="{:url('Login/loginout')}">退出登录</a></div>
+<div align="center">Welcome <a href="{:url('Login/usercenter',$name)}">{:$name}</a>&nbsp!&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="{:url('Login/loginout')}">LoginOut</a></div>
 <table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
     <tr>
         <th>UserName</th>
@@ -15,7 +15,7 @@
     </tr>
     {volist name='list' id='infor'}
     <tr>
-        <td width="89" align="center">{$infor.name}</td>
+        <td width="89" align="center"><a href="{:url('Login/usercenter',$infor.name)}">{$infor.name}</a></td>
         <td width="378">{$infor.content}</td>
         <td width="183" align="center">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
         <td width="50">
@@ -50,6 +50,6 @@
         </tr>
     </table>
 </form>
-</body>
 {$list->render()}
+</body>
 </html>
