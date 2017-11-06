@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Setting</title>
+</head>
+<body>
+<div align="center">Hello {:$name} ! You can change setting here .</div>
+<table cellpadding="10" cellspacing="0" border="1" width="500" align="center">
+    <tr>
+        <th>
+           Upload Avator IMG
+        </th>
+    </tr>
+    <tr>
+        <td align="center">
+            <form action="setting/upload" method="post">
+                <input type="file" name="user.avator">
+                <input type="submit" value="Submit">
+            </form>
+        </td>
+    </tr>
+    <tr>
+        <th>
+            Set ListRows of paginate
+        </th>
+    </tr>
+    <tr>
+        <td align="center">
+            <form action="setting/setpaginate" method="post">
+                <input type="number" value="{:$rows}">
+                <input type="submit" value="Submit">
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

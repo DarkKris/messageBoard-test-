@@ -29,6 +29,6 @@ app\index
 
 ```php
     fixing the problem of error displaying in Register.html
-    fixing the bug of usercenter
+    add function of setting
     adding the function of avator-img
 ```
