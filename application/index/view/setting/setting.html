@@ -8,25 +8,28 @@
 <div align="center">Hello {:$name} ! You can change setting here .</div>
 <table cellpadding="10" cellspacing="0" border="1" width="500" align="center">
     <tr>
-        <th>
+        <th colspan="2">
            Upload Avator IMG
         </th>
     </tr>
     <tr>
         <td align="center">
-            <form action="setting/upload" method="post">
-                <input type="file" name="user.avator">
+            <img src="{:$address}" width="300" height="300"/>
+        </td>
+        <td align="center">
+            <form action="index/Setting/upload" enctype="multipart/form-data" method="post">
+                <input type="file" name="users.avator">
                 <input type="submit" value="Submit">
             </form>
         </td>
     </tr>
     <tr>
-        <th>
+        <th colspan="2">
             Set ListRows of paginate
         </th>
     </tr>
     <tr>
-        <td align="center">
+        <td align="center" colspan="2">
             <form action="setting/setpaginate" method="post">
                 <input type="number" value="{:$rows}">
                 <input type="submit" value="Submit">
