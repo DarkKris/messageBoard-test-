@@ -14,10 +14,10 @@
     </tr>
     <tr>
         <td align="center">
-            <img src="{:$address}" width="300" height="300"/>
+            <img src="../../../../public/uploads/{:$address}" width="250" height="250"/>
         </td>
         <td align="center">
-            <form action="index/Setting/upload" enctype="multipart/form-data" method="post">
+            <form action="{:url('index/Setting/upload')}" enctype="multipart/form-data" method="post">
                 <input type="file" name="users.avator">
                 <input type="submit" value="Submit">
             </form>
@@ -30,12 +30,13 @@
     </tr>
     <tr>
         <td align="center" colspan="2">
-            <form action="setting/setpaginate" method="post">
+            <form action="{:url('index/Setting/setpaginate')}" method="post">
                 <input type="number" value="{:$rows}">
                 <input type="submit" value="Submit">
             </form>
         </td>
     </tr>
 </table>
+<div align="center"><a href="{:url('index/Login/messagelst')}">Home Page</a> </div>
 </body>
 </html>

@@ -7,26 +7,34 @@
  */
 namespace app\index\controller;
 use think\Controller;
+use think\Db;
 use app\index\model\Users;
+use think\request;
 class Setting extends controller
 {
     public function setting()
     {
-        $userssrc=Db::table('users')//从数据库中提取头像信息
-            ->where(array(''));//
-        $this->assign('address',$userssrc);
-        $this->display('setting/setting');
+        $id=session('users.userId');
+        $userssrc=Db::table('users')
+            ->where(array('userId'=>$id))
+            ->find();
+        $this->assign('rows',$userssrc['pagrows']);
+        $this->assign('name',session('users.name'));
+        $this->assign('address',$userssrc['imgsrc']);
+        return $this->fetch();
     }
 
     public function upload()
     {
         $file=request()->file('users.avator');
 
-        $info=$file->move(ROOT_PATH . 'public' . DS . 'uploads');
+        $info=$file->move(ROOT_PATH . 'public' . DS . 'uploads');//
         if($info)
         {
+            $id=session('users.userId');
             $address=$info->getSaveName();
-            //保存至数据库users.imgsrc
+            $user = new Users;
+            $user->where(array('id'=>$id))->setField(array('imgsrc'=>$address));
         }else{
             $this->error('Upload fail');
         }
@@ -35,7 +43,15 @@ class Setting extends controller
     public function setpaginate()
     {
         $rows=input('post.number');
-        //保存至数据库users.pagrows
+        $id=session('users.userId');
+        $user = new Users;
+        $result=$user->where(array('userId'=>$id))->setField('pagrows',$rows);
+        if($result)
+        {
+            $this->success('Set success !');
+        }else {
+            $this->error('Set fail');
+        }
     }
 }
 ?>

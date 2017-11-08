@@ -43,11 +43,15 @@ class Login extends Controller
 
     public function messagelst()//显示留言
     {
+        $us=Db::table('users')
+            ->where(array('userId'=>session('users.userId')))
+            ->find();
+        $rows=$us['pagrows'];
         $list=Db::table('users')
             ->alias('users')//指定当前数据表的别名
             ->join('message message','users.userId = message.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
-            ->paginate(8);
+            ->paginate($rows);
         $this->assign('list',$list);//assign()模板变量赋值
         $this->assign('name',session('users.name'));
         return $this->fetch('message/messagelst');//fetch()渲染模版输出,[模块@][控制器/][操作]写法支持跨模块
@@ -57,11 +61,15 @@ class Login extends Controller
 
     public function usercenter($qname)
     {
+        $us=Db::table('users')
+            ->where(array('userId'=>session('users.userId')))
+            ->find();
+        $rows=$us['pagrows'];
         $list=Db::table('users')
             ->alias('users')//指定当前数据表的别名
             ->where(array('name'=>$qname))
             ->join('message message','users.userId = message.userId')
-            ->paginate(15);
+            ->paginate($rows);
         $queryid=Db::table('users')
             ->where(array('name'=>$qname))
             ->find();
