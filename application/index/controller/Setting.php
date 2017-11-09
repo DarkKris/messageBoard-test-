@@ -9,7 +9,8 @@ namespace app\index\controller;
 use think\Controller;
 use think\Db;
 use app\index\model\Users;
-use think\request;
+use think\File;
+use think\Request;
 class Setting extends controller
 {
     public function setting()
@@ -27,17 +28,23 @@ class Setting extends controller
     public function upload()
     {
         $file=request()->file('users.avator');
-
-        $info=$file->move(ROOT_PATH . 'public' . DS . 'uploads');//
-        if($info)
-        {
-            $id=session('users.userId');
-            $address=$info->getSaveName();
+            $dir = ROOT_PATH . 'public' . DS . 'uploads' . DS;
+//            return dump($dir);
+//            if(!is_dir($dir))
+//            {
+//                mkdir($dir,0777,true);
+//            }
+            $info=$file->move($dir);
+            $filename=$info->getExtension();
             $user = new Users;
-            $user->where(array('id'=>$id))->setField(array('imgsrc'=>$address));
-        }else{
-            $this->error('Upload fail');
-        }
+            $id=session('users.userId');
+            $result = $user->where(array('userId'=>$id))->setField(array('imgsrc'=>$filename));
+            if($result)
+            {
+                $this->success('Upload success !');
+            }else{
+                $this->error('Upload fail !');
+            }
     }
 
     public function setpaginate()
@@ -45,7 +52,7 @@ class Setting extends controller
         $rows=input('post.number');
         $id=session('users.userId');
         $user = new Users;
-        $result=$user->where(array('userId'=>$id))->setField('pagrows',$rows);
+        $result=$user->where(array('userId'=>$id))->setField(array('pagrows'=>$rows));
         if($result)
         {
             $this->success('Set success !');
