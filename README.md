@@ -33,5 +33,5 @@ app\index
 #### continue:
 
 ```php
-    fixing the problem of error displaying in Register.
+    nothing
 ```

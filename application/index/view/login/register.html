@@ -38,6 +38,7 @@
                 <a href="login" >Sign in</a>
             </td>
         </tr>
+    </table>
 </form>
 {:isset($iserror)?$iserror==1?$pr='<p align="center" style="color: #EE0000">User name or Password is false !</p>':$iserror==2?$pr='<p align="center" style="color: #EE0000">Captcha is false !</p>':$pr='<p align="center" style="color: #EE0000">Entered passwords differ !</p>':$pr=''}
 </body>
