@@ -10,6 +10,7 @@ use think\Controller;
 use think\Db;
 use app\index\model\Users;
 use think\File;
+use think\Image;
 use think\Request;
 class Setting extends controller
 {
@@ -25,17 +26,16 @@ class Setting extends controller
         return $this->fetch();
     }
 
-    public function upload()
+    public function upload(Request $request)
     {
-        $file=request()->file('users.avator');
-            $dir = ROOT_PATH . 'public' . DS . 'uploads' . DS;
-//            return dump($dir);
+        $file=$request->file('image');
+
 //            if(!is_dir($dir))
 //            {
 //                mkdir($dir,0777,true);
 //            }
-            $info=$file->move($dir);
-            $filename=$info->getExtension();
+            $info=$file->move(ROOT_PATH . 'public' . DS . 'uploads');
+            $filename=$info->getSaveName();
             $user = new Users;
             $id=session('users.userId');
             $result = $user->where(array('userId'=>$id))->setField(array('imgsrc'=>$filename));
