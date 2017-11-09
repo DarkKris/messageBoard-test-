@@ -54,9 +54,9 @@ class Login extends Controller
             ->paginate($rows);
         $this->assign('list',$list);//assign()模板变量赋值
         $this->assign('name',session('users.name'));
+        $this->assign('address',$us['imgsrc']);
         return $this->fetch('message/messagelst');//fetch()渲染模版输出,[模块@][控制器/][操作]写法支持跨模块
         //这里将渲染模板输出至当前../view/message/message.html
-        //fault?
     }
 
     public function usercenter($qname)
@@ -76,6 +76,7 @@ class Login extends Controller
         $this->assign('list',$list);
         $this->assign('id',$queryid['userId']);
         $this->assign('name',$qname);
+        $this->assign('address',$queryid['imgsrc']);
         return $this->fetch('usercenter/usercenter');
     }
 

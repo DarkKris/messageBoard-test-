@@ -15,7 +15,7 @@
     </tr>
     {volist name='list' id='infor'}
     <tr>
-        <td width="89" align="center"><a href="{:url('Login/usercenter',$infor.name)}">{$infor.name}</a></td>
+        <td width="89" align="center"><img src="../../../../../../public/uploads/{:$address}" width="65" height="65"/><a href="{:url('Login/usercenter',$infor.name)}">{$infor.name}</a></td>
         <td width="378">{$infor.content}</td>
         <td width="183" align="center">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
         <td width="50">

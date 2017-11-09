@@ -29,22 +29,17 @@ class Setting extends controller
     public function upload(Request $request)
     {
         $file=$request->file('image');
-
-//            if(!is_dir($dir))
-//            {
-//                mkdir($dir,0777,true);
-//            }
-            $info=$file->move(ROOT_PATH . 'public' . DS . 'uploads');
-            $filename=$info->getSaveName();
-            $user = new Users;
-            $id=session('users.userId');
-            $result = $user->where(array('userId'=>$id))->setField(array('imgsrc'=>$filename));
-            if($result)
-            {
-                $this->success('Upload success !');
-            }else{
-                $this->error('Upload fail !');
-            }
+        $info=$file->rule('uniqid') ->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . date("Ym"));
+        $filename=$info->getFilename();
+        $user = new Users;
+        $id=session('users.userId');
+        $result = $user->where(array('userId'=>$id))->setField(array('imgsrc'=>date("Ym") . DS . $filename));
+        if($result)
+        {
+            $this->success('Upload success !');
+        }else{
+            $this->error('Upload fail !');
+        }
     }
 
     public function setpaginate()

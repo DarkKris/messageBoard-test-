@@ -14,6 +14,7 @@ app\index
 	|->model
 	|	|->Users.php
 	|	|->Message.php
+	|   |->Setting.php
 	|->controller
 	|	|->Login.php
 	|   |->Messages.php
@@ -22,13 +23,15 @@ app\index
 		|   |->Login.html
 		|   |->register.html
 		|->message
-		    |->messagelst.html
+		|   |->messagelst.html
+		|->setting
+		|   |->setting.html
+		|->usercenter
+		    |->usercenter.html
 ``` 
 
 #### continue:
 
 ```php
-    fixing the problem of error displaying in Register.html
-    add function of setting
-    adding the function of avator-img
+    fixing the problem of error displaying in Register.
 ```
