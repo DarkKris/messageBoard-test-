@@ -24,7 +24,7 @@
             {eq name="$infor.name" value="tourist"}
             {$infor.name}
             {else/}
-            <a href="{:url('Login/usercenter',$infor.name)}">{$infor.name}</a>
+            <a href="{:url('Login/usercenter',array('qname'=>$infor.name))}">{$infor.name}</a>
             {/eq}
         </td>
         <td width="378">{$infor.content}</td>
