@@ -5,6 +5,24 @@
 
 ***
 
+## Function
+
+> **User:**  
+> Login/LoginOut(Captcha)  
+> User Center  
+> Set avatar  
+> Set rows of paginating  
+>  
+> **Message:**  
+> Display  
+> Post  
+> Delete  
+>  
+> **Admin:**  
+> Delete others message
+
+***
+
 ## Schedule
 
 #### complete:
