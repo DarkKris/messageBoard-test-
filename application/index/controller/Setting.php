@@ -59,5 +59,42 @@ class Setting extends controller
             $this->error('Set fail');
         }
     }
+
+    #修改密码
+    public function changepw()
+    {
+        if(request()->isPost())
+        {
+            $user = new Users;
+            $id = session('users.userId');
+            $data = Db::table('users')
+                ->where(array('userId' => $id))
+                ->find();
+            $pw = $data['password'];
+            $oripw = md5(input('post.ori'));//键入原密码
+            $newpw = md5(input('post.new'));
+            $conf = md5(input('post.repw'));
+            $this->assign('rows',$data['pagrows']);
+            $this->assign('name',session('users.name'));
+            $this->assign('address',$data['imgsrc']);
+            if ($newpw != $conf) {
+                $this->assign("iserror", 3);//3:两次密码不相同
+                $this->display('usercenter/usercenter');
+            } else {
+                if ($pw != $oripw) {
+                    $this->assign("iserror", 2);//2:原密码错误
+                    $this->display('setting/setting');
+                } else {
+                    $result = $user->where(array('userId' => $id))->setField(array('password' => $newpw));
+                    if ($result) {
+                        $this->success('Set success !');
+                    } else {
+                        $this->error('Set fail');
+                    }
+                }
+            }
+        }
+        return view('setting/setting');
+    }
 }
 ?>

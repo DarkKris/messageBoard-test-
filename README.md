@@ -12,6 +12,7 @@
 > User Center  
 > Set avatar  
 > Set rows of paginating  
+> Change password
 >  
 > **Message:**  
 > Display  
@@ -51,5 +52,5 @@ app\index
 #### continue:
 
 ```php
-    nothing
+    adding 'find back password'
 ```
