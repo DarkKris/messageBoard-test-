@@ -18,7 +18,7 @@ class Messages extends Controller
     {
         if(!session('users.userId'))
         {
-            $this->error('Please sign in firstly !',url('Login/login'));
+            $this->error('Please login or login tourist firstly !',url('Login/login'));
         }
     }
     #保存用户留言

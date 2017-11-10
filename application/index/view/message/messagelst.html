@@ -5,7 +5,11 @@
     <title>Message display</title>
 </head>
 <body>
+{eq name="name" value="tourist"}
+<div align="center">Welcome Tourist !&nbsp&nbsp&nbsp&nbsp<a href="{:url('Setting/setting')}">Setting</a>&nbsp&nbsp&nbsp<a href="{:url('Login/loginout')}">LoginOut</a></div>
+{else/}
 <div align="center">Welcome <a href="{:url('Login/usercenter',array('qname'=>$name))}">{:$name}</a>&nbsp!&nbsp&nbsp&nbsp<a href="{:url('Setting/setting')}">Setting</a>&nbsp&nbsp&nbsp<a href="{:url('Login/loginout')}">LoginOut</a></div>
+{/eq}
 <table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
     <tr>
         <th>UserName</th>
@@ -15,7 +19,14 @@
     </tr>
     {volist name='list' id='infor'}
     <tr>
-        <td width="89" align="center"><img src="../../../../../../public/uploads/{:$address}" width="65" height="65"/><a href="{:url('Login/usercenter',$infor.name)}">{$infor.name}</a></td>
+        <td width="89" align="center">
+            <img src="../../../../../../public/uploads/{:$address}" width="65" height="65"/>
+            {eq name="$infor.name" value="tourist"}
+            {$infor.name}
+            {else/}
+            <a href="{:url('Login/usercenter',$infor.name)}">{$infor.name}</a>
+            {/eq}
+        </td>
         <td width="378">{$infor.content}</td>
         <td width="183" align="center">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
         <td width="50">
