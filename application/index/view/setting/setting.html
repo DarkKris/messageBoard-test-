@@ -20,6 +20,7 @@
             Upload avatar(jpg/jpeg/png/gif)
             <br>
             Please less than 2MB
+            <br>
             <form action="{:url('index/Setting/upload')}" enctype="multipart/form-data" method="post">
                 <input type="file" accept="image/jpeg,image/png,image/gif,image/jpg" name="image">
                 <br>
@@ -40,6 +41,28 @@
             </form>
         </td>
     </tr>
+
+    <form action="{:url('index/setting/changepw')}" method="post">
+        <tr>
+            <th colspan="3">
+                Change Password : <input type="submit" value="Submit" name="changepw">
+                {:isset($iserror)?$iserror==1?$pr='<p align="center" style="color: #EE0000">User name or Password is false !</p>':$iserror==2?$pr='<p align="center" style="color: #EE0000">Password incorrect!</p>':$pr='<p align="center" style="color: #EE0000">Entered passwords differ !</p>':$pr=''}
+            </th>
+        </tr>
+
+        <tr>
+            <td>Password:</td>
+            <td>NewPassword:</td>
+            <td>Confirm:</td>
+        </tr>
+
+        <tr>
+            <td><input type="password" required="required" name="ori"></td>
+            <td><input type="password" required="required" name="new"></td>
+            <td><input type="password" required="required" name="repw"></td>
+        </tr>
+    </form>
+
 </table>
 <div align="center"><a href="{:url('index/Login/messagelst')}">Home Page</a> </div>
 </body>
