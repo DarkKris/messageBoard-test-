@@ -28,17 +28,21 @@ class Setting extends controller
 
     public function upload(Request $request)
     {
-        $file=$request->file('image');
-        $info=$file->rule('uniqid') ->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . date("Ym"));
-        $filename=$info->getFilename();
         $user = new Users;
         $id=session('users.userId');
-        $result = $user->where(array('userId'=>$id))->setField(array('imgsrc'=>date("Ym") . DS . $filename));
-        if($result)
+        if($id==0)
         {
-            $this->success('Upload success !');
-        }else{
-            $this->error('Upload fail !');
+            $this->error('Please login to use this function !');
+        }else {
+            $file = $request->file('image');
+            $info = $file->rule('uniqid')->move(ROOT_PATH . 'public' . DS . 'uploads' . DS . date("Ym"));
+            $filename = $info->getFilename();
+            $result = $user->where(array('userId' => $id))->setField(array('imgsrc' => date("Ym") . DS . $filename));
+            if ($result) {
+                $this->success('Upload success !');
+            } else {
+                $this->error('Upload fail !');
+            }
         }
     }
 

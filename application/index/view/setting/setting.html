@@ -17,8 +17,11 @@
             <img src="../../../../public/uploads/{:$address}" width="250" height="250"/>
         </td>
         <td align="center">
+            Upload avatar(jpg/jpeg/png/gif)
+            <br>
+            Please less than 2MB
             <form action="{:url('index/Setting/upload')}" enctype="multipart/form-data" method="post">
-                <input type="file" name="image">
+                <input type="file" accept="image/jpeg,image/png,image/gif,image/jpg" name="image">
                 <br>
                 <input type="submit" value="Submit">
             </form>
@@ -26,7 +29,7 @@
     </tr>
     <tr>
         <th colspan="2">
-            Set ListRows of paginate
+            Set ListRows of paginating
         </th>
     </tr>
     <tr>

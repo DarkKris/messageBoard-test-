@@ -41,6 +41,15 @@ class Login extends Controller
         return view();//如果没有登录就跳转至login.html
     }
 
+    public function touristlogin()
+    {
+        session('users.userId',0);
+        session('users.name','tourist');
+        $user = new Users;
+        $user->where(array('userId'=>0))->setField(array('pagrows'=>15));
+        $this->success('Welcome !',url('messagelst'));
+    }
+
     public function messagelst()//显示留言
     {
         $us=Db::table('users')
