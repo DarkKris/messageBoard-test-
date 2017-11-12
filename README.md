@@ -18,6 +18,7 @@
 > Display  
 > Post  
 > Delete  
+> Change  
 >  
 > **Admin:**  
 > Delete others message
@@ -52,6 +53,7 @@ app\index
 #### continue:
 
 ```php
-    adding 'change message'
+    adding 'admin control users'
+    adding 'message comment'
     adding 'find back password'
 ```
