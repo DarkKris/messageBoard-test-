@@ -21,6 +21,32 @@ class Messages extends Controller
             $this->error('Please login or login tourist firstly !',url('Login/login'));
         }
     }
+    #修改留言-页面显示
+    public function changemsg($messageId)
+    {
+        session('msgid',$messageId);
+        $message=Db::name('message')->where(array('messageId'=>$messageId))->find();
+        $this->assign('msgid',$messageId);
+        $this->assign('content',$message['content']);
+        return view('message/changemsg');
+    }
+    #修改留言
+    public function changemessage()
+    {
+        if(request()->isPost())
+        {
+            $msg = new Message;
+            $content = input('post.words');
+            $result=$msg->where(array('messageId'=>session('msgid')))->setField(array('content'=>$content));
+            if($result)
+            {
+                $this->success('Change success !',url('index/login/messagelst'));
+            }else{
+                $this->error('Change fail !',url('changemsg'));
+            }
+            unset($_SESSION['msgid']);
+        }
+    }
     #保存用户留言
     public function savemsg()
     {
@@ -28,11 +54,9 @@ class Messages extends Controller
         $content = input('post.words');
         if(empty($content))
         {
-            $this->assign('iserror',1);//No content
-            //$this->display('')                    ###***
+            $this->error('No content');//No content
         }elseif(mb_strlen($content,'utf-8')>225){
-            $this->assign('iserror',2);//The number of message limit
-            //$this->display('')                    ###***
+            $this->error('The number of words is exceed');//The number of message limit
         }else{
             $user=Users::get(session('users.userId'));
             $message = new Message;

@@ -52,5 +52,6 @@ app\index
 #### continue:
 
 ```php
+    adding 'change message'
     adding 'find back password'
 ```

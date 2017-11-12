@@ -31,7 +31,11 @@
         <td width="183" align="center">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
         <td width="50">
             {eq name="Think.session.users.userId" value="$infor.userId"}
-            <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+                {neq name="Think.session.users.userId" value="2"}
+                <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+                &nbsp
+                <a href="{:url('index/Messages/changemsg',array('messageId'=>$infor.messageId))}">Edit</a>
+                {/neq}
             {else/}
                 {eq name="Think.session.users.userId" value="3"}
                 <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
@@ -49,14 +53,14 @@
         </tr>
 
         <tr>
-            <td colspan="2" width="700"><textarea name="words" cols="109" rows="10"></textarea></td>
+            <td colspan="2" width="700"><textarea name="words" cols="109" rows="10" placeholder="Do not enter more than 255"></textarea></td>
         </tr>
 
         <tr>
             <td colspan="2" align="center">
                 <input type="submit" name="send" value="Post">
                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                <input type="reset"  value="reset">
+                <input type="reset"  value="Reset">
             </td>
         </tr>
     </table>
