@@ -14,7 +14,7 @@
 
         <tr>
             <td>User Name</td>
-            <td><input type="text" name="username" required="required" style="width: 250px" value="{:isset($username)?$username:$pr='Please enter your account'}" > *</td>
+            <td><input type="text" name="username" required="required" style="width: 250px" {:isset($username)?$pr='value='.'"'.$username.'"':$pr='placeholder="please enter your account'.'"'}" placeholder="please enter your account" > *</td>
         </tr>
 
         <tr>

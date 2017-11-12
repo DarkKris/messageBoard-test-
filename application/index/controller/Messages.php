@@ -21,6 +21,29 @@ class Messages extends Controller
             $this->error('Please login or login tourist firstly !',url('Login/login'));
         }
     }
+    #修改留言
+    public function changemsg()
+    {
+        $msg = new Message;
+        $request=Request::instance();
+        $id=$request->param('messageId');
+        $message=$msg->where(array('messageId'=>$id))->find();
+        $this->assign('msgid',$id);
+        $this->assign('content',$message['content']);
+        if(request()->isPost())
+        {
+            $content = input('post.words');
+            return 'M='.dump($message['content']);
+            $result=$msg->where(array('messageId'=>$id))->setField(array('content'=>$content));
+            if($result)
+            {
+                $this->success('Change success !',url('index/login/messagelst'));
+            }else{
+                $this->error('Change fail !');
+            }
+        }
+        return view('message/changemsg');
+    }
     #保存用户留言
     public function savemsg()
     {

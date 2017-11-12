@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Message</title>
+</head>
+<body>
+<form action="message/changemsg" method="post">
+    <table cellpadding="10" cellspacing="0" border="1" align="center">
+        <tr>
+            <th>Change Message &nbsp&nbsp&nbsp Message ID:{:$msgid}</th>
+        </tr>
+
+        <tr>
+            <td align="center">
+                <textarea name="words" cols="109" rows="10" required="required">{:$content}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                <input type="submit" value="Submit">&nbsp&nbsp&nbsp<a href="javascript:history.go(-1);">Back</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
