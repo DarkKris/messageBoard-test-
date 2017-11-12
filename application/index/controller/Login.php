@@ -43,10 +43,10 @@ class Login extends Controller
 
     public function touristlogin()
     {
-        session('users.userId',0);
+        session('users.userId',2);
         session('users.name','tourist');
         $user = new Users;
-        $user->where(array('userId'=>0))->setField(array('pagrows'=>15));
+        $user->where(array('userId'=>2))->setField(array('pagrows'=>15));
         $this->success('Welcome !',url('messagelst'));
     }
 

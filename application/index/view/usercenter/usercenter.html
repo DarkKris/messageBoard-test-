@@ -31,6 +31,8 @@
         <td width="50">
             {eq name="Think.session.users.userId" value="$infor.userId"}
             <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
+            &nbsp
+            <a href="{:url('index/Messages/changemsg',array('messageId'=>$infor.messageId))}">Edit</a>
             {else/}
                 {eq name="Think.session.users.userId" value="3"}
                 <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>

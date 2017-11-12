@@ -30,7 +30,7 @@ class Setting extends controller
     {
         $user = new Users;
         $id=session('users.userId');
-        if($id==0)
+        if($id==2)
         {
             $this->error('Please login to use this function !');
         }else {
@@ -63,6 +63,10 @@ class Setting extends controller
     #修改密码
     public function changepw()
     {
+        if(session('users.userId')==2)
+        {
+            $this->error('Please Login to use this function !',url('login/messagelst'));
+        }
         if(request()->isPost())
         {
             $user = new Users;

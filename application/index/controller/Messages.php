@@ -33,7 +33,7 @@ class Messages extends Controller
         if(request()->isPost())
         {
             $content = input('post.words');
-            return 'M='.dump($message['content']);
+//            return 'M='.dump($message['content']);
             $result=$msg->where(array('messageId'=>$id))->setField(array('content'=>$content));
             if($result)
             {
@@ -51,11 +51,9 @@ class Messages extends Controller
         $content = input('post.words');
         if(empty($content))
         {
-            $this->assign('iserror',1);//No content
-            //$this->display('')                    ###***
+            $this->error('No content');//No content
         }elseif(mb_strlen($content,'utf-8')>225){
-            $this->assign('iserror',2);//The number of message limit
-            //$this->display('')                    ###***
+            $this->error('The number of words is exceed');//The number of message limit
         }else{
             $user=Users::get(session('users.userId'));
             $message = new Message;
