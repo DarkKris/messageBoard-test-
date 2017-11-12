@@ -21,28 +21,31 @@ class Messages extends Controller
             $this->error('Please login or login tourist firstly !',url('Login/login'));
         }
     }
-    #修改留言
-    public function changemsg()
+    #修改留言-页面显示
+    public function changemsg($messageId)
     {
-        $msg = new Message;
-        $request=Request::instance();
-        $id=$request->param('messageId');
-        $message=$msg->where(array('messageId'=>$id))->find();
-        $this->assign('msgid',$id);
+        session('msgid',$messageId);
+        $message=Db::name('message')->where(array('messageId'=>$messageId))->find();
+        $this->assign('msgid',$messageId);
         $this->assign('content',$message['content']);
+        return view('message/changemsg');
+    }
+    #修改留言
+    public function changemessage()
+    {
         if(request()->isPost())
         {
+            $msg = new Message;
             $content = input('post.words');
-//            return 'M='.dump($message['content']);
-            $result=$msg->where(array('messageId'=>$id))->setField(array('content'=>$content));
+            $result=$msg->where(array('messageId'=>session('msgid')))->setField(array('content'=>$content));
             if($result)
             {
                 $this->success('Change success !',url('index/login/messagelst'));
             }else{
-                $this->error('Change fail !');
+                $this->error('Change fail !',url('changemsg'));
             }
+            unset($_SESSION['msgid']);
         }
-        return view('message/changemsg');
     }
     #保存用户留言
     public function savemsg()
