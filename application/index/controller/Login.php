@@ -13,7 +13,7 @@ use app\index\model\Message;
 use think\Controller;
 class Login extends Controller
 {
-    //用户登录验证
+    #用户登录验证
     public function login()
     {
         $users = new Users;
@@ -40,7 +40,7 @@ class Login extends Controller
         }
         return view();//如果没有登录就跳转至login.html
     }
-
+    #游客登录
     public function touristlogin()
     {
         session('users.userId',2);
@@ -49,8 +49,8 @@ class Login extends Controller
         $user->where(array('userId'=>2))->setField(array('pagrows'=>15));
         $this->success('Welcome !',url('messagelst'));
     }
-
-    public function messagelst()//显示留言
+    #显示留言
+    public function messagelst()
     {
         $us=Db::table('users')
             ->where(array('userId'=>session('users.userId')))
@@ -67,7 +67,7 @@ class Login extends Controller
         return $this->fetch('message/messagelst');//fetch()渲染模版输出,[模块@][控制器/][操作]写法支持跨模块
         //这里将渲染模板输出至当前../view/message/message.html
     }
-
+    #用户中心
     public function usercenter($qname)
     {
         $us=Db::table('users')
@@ -93,7 +93,7 @@ class Login extends Controller
         $this->assign('address',$queryid['imgsrc']);
         return $this->fetch('usercenter/usercenter');
     }
-
+    #注册
     public function register()
     {
         if(request()->isPost())
@@ -148,8 +148,7 @@ class Login extends Controller
         }
         return view('login/register');//定位到当前模块下的view文件夹下的login文件夹下的register.html
     }
-
-    //退出登录并摧毁登录数据
+    #退出登录并摧毁登录数据
     public function loginout()
     {
         session(null);//将当前用户会话中的session变量设为null
