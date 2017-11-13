@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Controller</title>
+</head>
+<body>
+<table align="center" cellspacing="0" cellpadding="8" border="1" width="1000">
+    <tr>
+        <th colspan="7">Users Controller</th>
+    </tr>
+
+    <tr>
+        <th>Avatar</th>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Paginate Rows</th>
+        <th>Deny</th>
+        <th>Created At</th>
+        <th>Option</th>
+    </tr>
+
+    {volist name='list' id='infor'}
+    <form action="{:url('index/setting/edituser',array('id'=>$infor.userId))}" method="post">
+    <tr>
+        <td align="center"><img src="../../../../../../public/uploads/{$infor.imgsrc}" width="60" height="60"></td>
+        <td align="center">{$infor.userId}</td>
+        <td>{eq name="$infor.userId" value="3"}{$infor.name}{else/}<input type="text" value="{$infor.name}" name="name">{/eq}</td>
+        <td>{eq name="$infor.userId" value="3"}{$infor.pagrows}{else/}<input type="number" value="{$infor.pagrows}" name="pagrows">{/eq}</td>
+        <td>{eq name="$infor.userId" value="3"}{$infor.deny}{else/}<input type="number" value="{$infor.deny}" name="deny">{/eq}</td>
+        <td>{$infor.createdAt|date='Y-m-d H:i:s',###}</td>
+        <td>
+            {neq name="$infor.userId" value="3"}
+            <input type="Submit" value="Edit">&nbsp
+            <a href="{:url('setting/deleteuser',array('id'=>$infor.userId))}">Delete</a>
+            {/neq}
+        </td>
+    </tr>
+    </form>
+    {/volist}
+    <form action="{:url('index/login/register')}" method="post">
+        <tr>
+            <th colspan="7">Create User</th>
+        </tr>
+
+        <tr>
+            <th>Name</th>
+            <th>Password</th>
+            <th>Confirm</th>
+            <th>Captcha</th>
+            <th></th>
+            <th>Captcha</th>
+            <th>Create</th>
+        </tr>
+
+        <tr>
+            <td><input type="text" name="username" required="required"></td>
+            <td><input type="text" name="password" required="required"></td>
+            <td><input type="text" name="repassword" required="required"></td>
+            <td><input name="captcha" type="text" required="required"></td>
+            <td><input type="number" value="2" name="from"></td>
+            <td>{:captcha_img()}</td>
+            <td>
+                <input type="submit" value="Create">
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </form>
+</table>
+{:isset($iserror)?$iserror==1?$pr='<p align="center" style="color: #EE0000">User name or Password is false !</p>':$iserror==2?$pr='<p align="center" style="color: #EE0000">Captcha is false !</p>':$pr='<p align="center" style="color: #EE0000">Entered passwords differ !</p>':$pr=''}
+<div align="center"><a href="{:url('index/Login/messagelst')}">Home Page</a> </div>
+</body>
+</html>

@@ -18,9 +18,11 @@
 > Display  
 > Post  
 > Delete  
+> Change  
 >  
 > **Admin:**  
 > Delete others message
+> User controller (include create user)
 
 ***
 
@@ -42,16 +44,18 @@ app\index
 		|   |->Login.html
 		|   |->register.html
 		|->message
+		|   |->changemsg.html
 		|   |->messagelst.html
 		|->setting
 		|   |->setting.html
 		|->usercenter
+		    |->admin.html
 		    |->usercenter.html
 ``` 
 
 #### continue:
 
 ```php
-    adding 'change message'
+    adding 'message comment'
     adding 'find back password'
 ```

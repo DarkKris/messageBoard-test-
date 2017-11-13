@@ -14,12 +14,50 @@ use think\Image;
 use think\Request;
 class Setting extends controller
 {
+    public function admincontrol()
+    {
+        $list=Db::table('users')->paginate(20);
+        $this->assign('list',$list);
+        return $this->fetch('usercenter/admin');
+    }
+
+    public function edituser($id)
+    {
+        $name=input('post.name');
+        $pagrows=input('post.pagrows');
+        $deny=input('post.deny');
+        $user = new Users;
+        $result=$user->where('userId',$id)->update(['name'=>$name,'pagrows'=>$pagrows,'deny'=>$deny]);
+        if($result)
+        {
+            $this->success('Change success !');
+        }else{
+            $this->error('Change fail !');
+        }
+    }
+
+    public function deleteuser($id)
+    {
+        $result=Db::table('message')->delete($id);
+        if($result>0)
+        {
+            $this->success('Delete success !');
+        }else{
+            $this->error('Delete fail !');
+        }
+    }
+
     public function setting()
     {
         $id=session('users.userId');
         $userssrc=Db::table('users')
             ->where(array('userId'=>$id))
             ->find();
+        if($userssrc['deny']==1)
+        {
+            session(null);
+            $this->error('Your Acoount Has Been Deny !!!',url('index/login/login'));
+        }
         $this->assign('rows',$userssrc['pagrows']);
         $this->assign('name',session('users.name'));
         $this->assign('address',$userssrc['imgsrc']);

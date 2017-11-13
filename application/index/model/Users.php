@@ -23,7 +23,7 @@ class Users extends Model
     //  $pw 密码
     public function checkUser($id,$pw)
     {
-        return Db::name('users')->where(array('name'=>$id,'password'=>md5($pw)))->find();
+        return Db::name('users')->where(array('name' => $id, 'password' => md5($pw)))->find();
     }
     //检测用户名是否已经使用过(注册时)
     //  $username 注册时输入的用户名

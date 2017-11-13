@@ -73,6 +73,11 @@ class Login extends Controller
         $us=Db::table('users')
             ->where(array('userId'=>session('users.userId')))
             ->find();
+        if($us['deny']==1)
+        {
+            session(null);
+            $this->error('Your Acoount Has Been Deny !!!',url('login'));
+        }
         $rows=$us['pagrows'];
         $list=Db::table('users')
             ->alias('users')//指定当前数据表的别名
@@ -100,20 +105,32 @@ class Login extends Controller
             {
                 $this->assign("iserror",2);
                 $this->assign("username",input('post.username'));
-                $this->display('register');
+                if(input('post.from')==1) {
+                    $this->display('register');
+                }else{
+                    $this->error('Captcha false !',url('index/setting/admincontrol'));
+                }
             }else {
                 if($password!=$repassword)
                 {
                     $this->assign("iserror",3);
                     $this->assign("username",input('post.username'));
-                    $this->display('register');
+                    if(input('post.from')==1) {
+                        $this->display('register');
+                    }else{
+                        $this->error('Passwords different !',url('index/setting/admincontrol'));
+                    }
                 }else {
                     $user = new Users;
                     $result = $user->findUser($username);
                     if (!empty($result)) {
                         $this->assign("iserror", 1);
                         $this->assign("username", input('post.username'));
-                        $this->display('register');
+                        if(input('post.from')==1) {
+                            $this->display('register');
+                        }else{
+                            $this->error('User exist !',url('index/setting/admincontrol'));
+                        }
                     } else {
                         $user->data([                     //将填写的数据保存至数据库
                             'name' => $username,

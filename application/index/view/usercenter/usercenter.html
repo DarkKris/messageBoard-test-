@@ -42,7 +42,11 @@
     </tr>
     {/volist}
 </table>
-<div align="center"><a href="{:url('index/login/messagelst')}">Back</a></div>
+<div align="center">
+    {eq name="Think.session.users.userId" value="3"}
+    <a href="{:url('index/setting/admincontrol')}">UserController</a>&nbsp&nbsp&nbsp
+    {/eq}
+    <a href="{:url('index/login/messagelst')}">Back</a></div>
 {$list->render()}
 </body>
 </html>
