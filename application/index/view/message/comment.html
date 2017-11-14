@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+</head>
+<body>
+<form action="{:url('index/Messages/commsg')}" method="post">
+    <table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
+        <tr>
+            <th>Add Comment</th>
+        </tr>
+
+        <tr>
+            <td>
+                <textarea name="words" cols="109" rows="10" placeholder="Do not enter more than 255"></textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="submit" value="Submit">
+                &nbsp&nbsp&nbsp
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

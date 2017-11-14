@@ -29,11 +29,11 @@
         </td>
         <td width="378">{$infor.content}</td>
         <td width="183" align="center">{$infor.creatAt|date='Y-m-d H:i:s',###}</td>
-        <td width="50">
+        <td width="50" align="center">
+            <a href="{:url('index/Messages/commsg',array('messageId'=>$infor.messageId))}">Comment</a>
             {eq name="Think.session.users.userId" value="$infor.userId"}
                 {neq name="Think.session.users.userId" value="2"}
                 <a href="{:url('index/Messages/delete',array('messageId'=>$infor.messageId))}">Delete</a>
-                &nbsp
                 <a href="{:url('index/Messages/changemsg',array('messageId'=>$infor.messageId))}">Edit</a>
                 {/neq}
             {else/}

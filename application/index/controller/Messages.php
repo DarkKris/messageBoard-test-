@@ -6,6 +6,7 @@
  * Time: 上午12:00
  */
 namespace app\index\controller;
+use app\index\model\Comment;
 use think\Db;
 use think\controller;
 use app\index\model\Users;
@@ -22,6 +23,30 @@ class Messages extends Controller
             session(null);
             $this->error('Your Acoount Has Been Deny !!!',url('index/login/login'));
         }
+    }
+    #为留言增加评论-view
+    public function commsg($messageId)
+    {
+        if(request()->isPost())
+        {
+            $this->isdeny();
+            $this->checkUser();
+            $content=input('post.words');
+            if(empty($content))
+            {
+                $this->error('Please type in !');
+            }elseif(mb_strlen($content,'utf-8')>225){
+                $this->error('The number of words is exceed');
+            }else{
+                $user=Users::get(session('users.userId'));
+                $message = new Comment();
+                $message->content=input('post.words');
+                $message->creatAt=time();
+                $user->comm()->save($message);
+                $this->success('Post success',url('login/messagelst'));
+            }
+        }
+        return view('message/comment');
     }
     #检测用户是否登录
     public function checkUser()
