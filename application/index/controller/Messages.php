@@ -38,11 +38,12 @@ class Messages extends Controller
             }elseif(mb_strlen($content,'utf-8')>225){
                 $this->error('The number of words is exceed');
             }else{
-                $user=Users::get(session('users.userId'));
-                $message = new Comment();
-                $message->content=input('post.words');
-                $message->creatAt=time();
-                $user->comm()->save($message);
+                $message=Message::get($messageId);
+                $comment = new Comment;
+                $comment->content=input('post.words');
+                $comment->creatAt=time();
+                $comment->userId=session('users.userId');
+                $message->msgcom()->save($comment);
                 $this->success('Post success',url('login/messagelst'));
             }
         }
