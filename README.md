@@ -19,7 +19,8 @@
 > Display  
 > Post  
 > Delete  
-> Change  
+> Change 
+> Comment 
 >  
 > **Admin:**  
 > Delete others message
@@ -40,6 +41,7 @@ app\index
 	|->controller
 	|	|->Login.php
 	|   |->Messages.php
+	|   |->Setting.php
 	|->view
 	    |->login
 		|   |->Login.html
@@ -47,6 +49,7 @@ app\index
 		|->message
 		|   |->changemsg.html
 		|   |->messagelst.html
+		|   |->comment.html
 		|->setting
 		|   |->setting.html
 		|->usercenter
@@ -57,6 +60,6 @@ app\index
 #### continue:
 
 ```php
-    adding 'message comment'
     adding 'find back password'
+    adding 'user sercher in admin.html'
 ```
