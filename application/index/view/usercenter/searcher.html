@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Searcher User</title>
+</head>
+<body>
+<form action="{:url('index/login/searchuser')}" method="post">
+    <table cellspacing="0" cellpadding="10" align="center" border="1">
+        <tr><th colspan="4">Search User</th></tr>
+
+        <tr>
+            <th>Name</th>
+            <th>ID</th>
+            <th>Deny</th>
+            <th>Search</th>
+        </tr>
+
+        <tr>
+            <td><input type="text" name="username"></td>
+            <td><input type="text" name="userID"></td>
+            <td><input type="text" name="userDeny"></td>
+            <td><input type="submit" value="Search"></td>
+        </tr>
+    </table>
+</form>
+<table cellspacing="0" cellpadding="10" align="center" border="1">
+    <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Deny</th>
+        <th>CreateAt</th>
+    </tr>
+    {volist name="list" id="infor"}
+    <tr>
+        <td align="center"><img src="../../../../../../public/uploads/{$infor.imgsrc}" width="60" height="60"></td>
+        <td align="center">{$infor.name}</td>
+        <td align="center">{$infor.userId}</td>
+        <td align="center">{$infor.deny}</td>
+        <td align="center">{$infor.createdAt|date='Y-m-d H:i:s',###}</td>
+    </tr>
+    {/volist}
+</table>
+<div align="center"><a href="javascript:history.go(-1);">Back</a></div>
+</body>
+</html>

@@ -61,5 +61,5 @@ app\index
 
 ```php
     adding 'find back password'
-    adding 'user sercher in admin.html'
+    adding 'user searcher in admin.html'
 ```

@@ -159,5 +159,31 @@ class Login extends Controller
         session(null);//将当前用户会话中的session变量设为null
         $this->success('Logout success !',url('login'));
     }
+    #查找用户
+    public function searchuser()
+    {
+        if(request()->isPost())
+        {
+            $user = new Users;
+            $username = input('post.username');
+            $userID = input('post.userID');
+            $userDeny = input('post.userDeny');
+            if(isset($username))
+            {
+                $user = $user->where('name',$username);
+            }
+            if(isset($userID))
+            {
+                $user = $user->where('userId',$userID);
+            }
+            if(isset($userDeny))
+            {
+                $user = $user->where('deny',$userDeny);
+            }
+            $this->assign('list',$user);
+            $this->display('usercenter/searcher');
+        }
+        return view('usercenter/searcher');
+    }
 }
 ?>
