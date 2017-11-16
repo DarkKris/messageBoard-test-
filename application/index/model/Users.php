@@ -18,12 +18,12 @@ class Users extends Model
         //一对多关联users表与message表
         return $this->hasMany('message','userId','userId');
     }
-    public function comuser()
-    {
-        //hasMany('关联模型名','外键名','主键名',['模型别名定义']);
-        //一对多关联users表与message表
-        return $this->hasMany('comment','userId','userId');
-    }
+//    public function comuser()
+//    {
+//        //hasMany('关联模型名','外键名','主键名',['模型别名定义']);
+//        //一对多关联users表与comment表
+//        return $this->hasMany('comment','userId','userId');
+//    }
     //用户登录验证
     //  $id 用户名
     //  $pw 密码

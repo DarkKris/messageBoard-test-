@@ -20,7 +20,7 @@
     {volist name='list' id='infor'}
     <tr>
         <td width="89" align="center">
-            <img src="../../../../../../public/uploads/{:$address}" width="60" height="60"/>
+            <img src="../../../../../../public/uploads/{:$infor.imgsrc}" width="60" height="60"/>
             {eq name="$infor.name" value="tourist"}
             {$infor.name}
             {else/}
@@ -43,13 +43,6 @@
             {/eq}
         </td>
     </tr>
-        {volist name='comlst' id='secfor'}
-        <tr>
-            <td>
-                
-            </td>
-        </tr>
-        {/colist}
     {/volist}
 </table>
 

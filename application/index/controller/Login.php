@@ -61,7 +61,8 @@ class Login extends Controller
             ->join('message message','users.userId = message.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
             ->paginate($rows);
-        $this->assign('list',$list);//assign()模板变量赋值
+
+        $this->assign('list',$list);
         $this->assign('name',session('users.name'));
         $this->assign('address',$us['imgsrc']);
         return $this->fetch('message/messagelst');//fetch()渲染模版输出,[模块@][控制器/][操作]写法支持跨模块
