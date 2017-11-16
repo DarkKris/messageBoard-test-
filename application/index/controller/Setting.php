@@ -38,7 +38,7 @@ class Setting extends controller
 
     public function deleteuser($id)
     {
-        $result=Db::table('message')->delete($id);
+        $result=Db::table('users')->delete($id);
         if($result>0)
         {
             $this->success('Delete success !');

@@ -13,6 +13,7 @@
 > Set avatar  
 > Set rows of paginating  
 > Change password
+> Be Deny to use function
 >  
 > **Message:**  
 > Display  

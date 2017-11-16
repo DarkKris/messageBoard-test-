@@ -10,5 +10,12 @@ use think\Model;
 class Message extends Model
 {
     protected $table = 'message';
+
+    public function msgcom()
+    {
+        //hasMany('关联模型名','外键名','主键名',['模型别名定义']);
+        //一对多关联message表与comment表
+        return $this->hasMany('comment','messageId','messageId');
+    }
 }
 ?>

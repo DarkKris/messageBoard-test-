@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Comment</title>
+</head>
+<body>
+<table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
+    {volist name='comlst' id='secfor'}
+    <tr>
+        <td width="50">Comment</td>
+        <td width="89" align="center">
+            <img src="../../../../../../public/uploads/{:$secfor.imgsrc}" width="60" height="60"/>
+            {eq name="$secfor.name" value="tourist"}
+            {$secfor.name}
+            {else/}
+            <a href="{:url('Login/usercenter',array('qname'=>$secfor.name))}">{$secfor.name}</a>
+            {/eq}
+        </td>
+        <td width="378">{$secfor.content}</td>
+        <td width="183" align="center">{$secfor.createAt|date='Y-m-d H:i:s',###}</td>
+        <td width="50" align="center">
+            {eq name="Think.session.users.userId" value="$secfor.userId"}
+            {neq name="Think.session.users.userId" value="2"}
+            <a href="{:url('index/Messages/deletecom',array('messageId'=>$secfor.messageId))}">Delete</a>
+            <a href="{:url('index/Messages/changecomment',array('messageId'=>$secfor.messageId))}">Edit</a>
+            {/neq}
+            {else/}
+            {eq name="Think.session.users.userId" value="3"}
+            <a href="{:url('index/Messages/deletecom',array('messageId'=>$secfor.messageId))}">Delete</a>
+            {/eq}
+            {/eq}
+        </td>
+    </tr>
+    {/volist}
+</table>
+<form action="{:url('index/Messages/commsg',array('messageId'=>$messageId))}" method="post">
+    <table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
+        <tr>
+            <th>Add Comment</th>
+        </tr>
+
+        <tr>
+            <td>
+                <textarea name="words" cols="109" rows="10" placeholder="Do not enter more than 255"></textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="submit" value="Submit">
+                &nbsp&nbsp&nbsp
+                <input type="reset" value="Reset">
+            </td>
+        </tr>
+    </table>
+</form>
+<div align="center"><a href="{:url('index/Login/messagelst')}">Home Page</a> </div>
+{$comlst->render()}
+</body>
+</html>
