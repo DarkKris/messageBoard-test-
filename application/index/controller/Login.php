@@ -141,7 +141,11 @@ class Login extends Controller
                         $a = $user->save();//save()返回写入的记录数
                         if ($a > 0)//是否成功写入记录
                         {
-                            $this->success("Registe success !", url('login'));//跳转至当前模块当前控制器下的login方法
+                            if(input('post.from'==1)) {
+                                $this->success("Registe success !", url('login'));//跳转至当前模块当前控制器下的login方法
+                            }else{
+                                $this->success("Registe success !");
+                            }
                         }
                     }
                 }
