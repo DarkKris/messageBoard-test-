@@ -171,7 +171,7 @@ class Login extends Controller
         }
         return view('usercenter/searcher');
     }
-    #查找用户功能
+    #查找用户功能//未完成
     public function search()
     {
         $user = new Users;

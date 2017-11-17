@@ -12,8 +12,8 @@
 > User Center  
 > Set avatar  
 > Set rows of paginating  
-> Change password
-> Be Deny to use function
+> Change password  
+> Be Deny to use function  
 >  
 > **Message:**  
 > Display  
@@ -23,8 +23,8 @@
 > Comment 
 >  
 > **Admin:**  
-> Delete others message
-> User controller (include create user)
+> Delete others message  
+> User controller (include create user)  
 
 ***
 
@@ -47,6 +47,7 @@ app\index
 		|   |->Login.html
 		|   |->register.html
 		|->message
+		|   |->changecom.html
 		|   |->changemsg.html
 		|   |->messagelst.html
 		|   |->comment.html
