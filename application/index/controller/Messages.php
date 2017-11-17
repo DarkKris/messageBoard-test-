@@ -30,8 +30,12 @@ class Messages extends Controller
         $us=Db::table('users')
             ->where(array('userId'=>session('users.userId')))
             ->find();
+        $msg=Db::table('message')
+            ->where(array('messageId'=>$messageId))
+            ->find();
         $rows=$us['pagrows'];
         $this->assign('messageId',$messageId);
+        $this->assign('content',$msg['content']);
         session('messageId',$messageId);
         $comlst=Db::table('users')
             ->alias('users')//指定当前数据表的别名
@@ -58,7 +62,7 @@ class Messages extends Controller
                 $comment->userId=session('users.userId');
                 $message->msgcom()->save($comment);
                 session('messageId',null);
-                $this->success('Post success',url('login/messagelst'));
+                $this->success('Post success'/*,url('login/messagelst')*/);
             }
         }
         return view('message/comment');
@@ -102,6 +106,17 @@ class Messages extends Controller
         $this->assign('content',$message['content']);
         return view('message/changemsg');
     }
+    #修改评论-页面显示
+    public function changecom($commentId)
+    {
+        $this->isdeny();
+        $this->checkUser();
+        session('comid',$commentId);
+        $comment=Db::name('comment')->where(array('commentId'=>$commentId))->find();
+        $this->assign('comid',$commentId);
+        $this->assign('content',$comment['content']);
+        return view('message/changecom');
+    }
     #修改留言
     public function changemessage()
     {
@@ -112,11 +127,11 @@ class Messages extends Controller
             $result=$msg->where(array('messageId'=>session('msgid')))->setField(array('content'=>$content));
             if($result)
             {
+                unset($_SESSION['msgid']);
                 $this->success('Change success !',url('index/login/messagelst'));
             }else{
                 $this->error('Change fail !',url('changemsg'));
             }
-            unset($_SESSION['msgid']);
         }
     }
     #修改评论
@@ -124,16 +139,16 @@ class Messages extends Controller
     {
         if(request()->isPost())
         {
-            $msg = new Message;
+            $msg = new Comment;
             $content = input('post.words');
-            $result=$msg->where(array('messageId'=>session('msgid')))->setField(array('content'=>$content));
+            $result=$msg->where(array('commentId'=>session('comid')))->setField(array('content'=>$content));
             if($result)
             {
+                unset($_SESSION['msgid']);
                 $this->success('Change success !',url('index/login/messagelst'));
             }else{
-                $this->error('Change fail !',url('changemsg'));
+                $this->error('Change fail !');
             }
-            unset($_SESSION['msgid']);
         }
     }
     #删除留言
@@ -157,11 +172,11 @@ class Messages extends Controller
         $this->isdeny();
         $this->checkUser();
         $request=Request::instance();
-        $id=$request->param('messageId');
-        $result=Db::table('message')->delete($id);
+        $id=$request->param('commentId');
+        $result=Db::table('comment')->delete($id);
         if($result>0)
         {
-            $this->success('Delete success',url('Login/messagelst'));
+            $this->success('Delete success');
         }else{
             $this->error('Delete fail');
         }

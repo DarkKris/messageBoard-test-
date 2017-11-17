@@ -16,6 +16,8 @@ class Login extends Controller
     #用户登录验证
     public function login()
     {
+        if(session('users.userId')!=null)
+            $this->success('You have logined !',url('messagelst'));
         $users = new Users;
         if(request()->isPost())//是否有post请求
         {
@@ -159,30 +161,34 @@ class Login extends Controller
         session(null);//将当前用户会话中的session变量设为null
         $this->success('Logout success !',url('login'));
     }
-    #查找用户
+    #查找用户页面
     public function searchuser()
     {
-        if(request()->isPost())
+        if(!isset($list))
         {
             $user = new Users;
-            $username = input('post.username');
-            $userID = input('post.userID');
-            $userDeny = input('post.userDeny');
-            if(isset($username))
-            {
-                $user = $user->where('name',$username);
-            }
-            if(isset($userID))
-            {
-                $user = $user->where('userId',$userID);
-            }
-            if(isset($userDeny))
-            {
-                $user = $user->where('deny',$userDeny);
-            }
-            $this->assign('list',$user);
-            $this->display('usercenter/searcher');
+            $this->assign('list', $user);
         }
+        return view('usercenter/searcher');
+    }
+    #查找用户功能
+    public function search()
+    {
+        $user = new Users;
+        if(input('post.username')!=null)
+        {
+            $user = $user->where('name',input('post.username'));
+        }
+        if(input('post.userID')!=null)
+        {
+            $user = $user->where('userId',input('post.userID'));
+        }
+        if(input('post.userDeny')!=null)
+        {
+            $user = $user->where('deny',input('post.userDeny'));
+        }
+        $this->assign('list',$user);
+        $this->display('usercenter/searcher');
         return view('usercenter/searcher');
     }
 }
