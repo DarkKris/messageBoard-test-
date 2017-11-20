@@ -182,5 +182,10 @@ class Messages extends Controller
             $this->error('Delete fail');
         }
     }
+    #留言点赞
+    public function likeit($id)
+    {
+
+    }
 }
 ?>

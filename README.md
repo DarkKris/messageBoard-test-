@@ -38,6 +38,7 @@ app\index
 	|	|->Users.php
 	|	|->Message.php
 	|   |->Setting.php
+	|   |->Addlike.php
 	|->controller
 	|	|->Login.php
 	|   |->Messages.php
@@ -55,6 +56,7 @@ app\index
 		|   |->setting.html
 		|->usercenter
 		    |->admin.html
+		    |->searcher.html
 		    |->usercenter.html
 ``` 
 
@@ -62,5 +64,5 @@ app\index
 
 ```php
     adding 'find back password'
-    adding 'user searcher in admin.html'
+    adding 'like'
 ```

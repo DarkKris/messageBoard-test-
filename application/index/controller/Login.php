@@ -162,7 +162,7 @@ class Login extends Controller
         session(null);//将当前用户会话中的session变量设为null
         $this->success('Logout success !',url('login'));
     }
-    #查找用户功能//未完成
+    #查找用户功能
     public function search()
     {
         $condation=array();
