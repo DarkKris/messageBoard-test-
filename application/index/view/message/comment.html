@@ -20,7 +20,7 @@
 <table border="1" align="center" width="700" cellpadding="10" cellspacing="0">
     {volist name='comlst' id='secfor'}
     <tr>
-        <td width="50">Comment</td>
+
         <td width="89" align="center">
             <img src="../../../../../../public/uploads/{:$secfor.imgsrc}" width="60" height="60"/>
             {eq name="$secfor.name" value="tourist"}
@@ -31,7 +31,7 @@
         </td>
         <td width="378">{$secfor.content}</td>
         <td width="183" align="center">{$secfor.createAt|date='Y-m-d H:i:s',###}</td>
-        <td width="50" align="center">
+        <td width="70" align="center">
             {eq name="Think.session.users.userId" value="$secfor.userId"}
             {neq name="Think.session.users.userId" value="2"}
             <a href="{:url('index/Messages/deletecom',array('commentId'=>$secfor.commentId))}">Delete</a>

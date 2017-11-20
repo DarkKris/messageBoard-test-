@@ -27,6 +27,7 @@ class Messages extends Controller
     #为留言增加评论-view
     public function commsg($messageId)
     {
+        $this->isdeny();
         $us=Db::table('users')
             ->where(array('userId'=>session('users.userId')))
             ->find();
