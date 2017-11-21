@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change Comment</title>
+</head>
+<body>
+<form action="{:url('index/Messages/changecomment')}" method="post">
+    <table cellpadding="10" cellspacing="0" border="1" align="center">
+        <tr>
+            <th>Change Comment &nbsp&nbsp&nbsp Comment ID:{:$comid}</th>
+        </tr>
+
+        <tr>
+            <td align="center">
+                <textarea name="words" cols="109" rows="10" required="required">{:$content}</textarea>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">
+                <input type="submit" value="Submit">&nbsp&nbsp&nbsp<a href="javascript:history.go(-1);">Back</a>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

@@ -12,8 +12,8 @@
 > User Center  
 > Set avatar  
 > Set rows of paginating  
-> Change password
-> Be Deny to use function
+> Change password  
+> Be Deny to use function  
 >  
 > **Message:**  
 > Display  
@@ -21,10 +21,15 @@
 > Delete  
 > Change 
 > Comment 
+> Like  
 >  
-> **Admin:**  
-> Delete others message
-> User controller (include create user)
+> **Admin:** (userId=3;password="admin")  
+> Delete others message  
+> User controller (include create user)  
+> Search user  
+>
+> **Tourist** (userId=2;no password)  
+> login
 
 ***
 
@@ -38,6 +43,7 @@ app\index
 	|	|->Users.php
 	|	|->Message.php
 	|   |->Setting.php
+	|   |->Addlike.php
 	|->controller
 	|	|->Login.php
 	|   |->Messages.php
@@ -47,6 +53,7 @@ app\index
 		|   |->Login.html
 		|   |->register.html
 		|->message
+		|   |->changecom.html
 		|   |->changemsg.html
 		|   |->messagelst.html
 		|   |->comment.html
@@ -54,12 +61,12 @@ app\index
 		|   |->setting.html
 		|->usercenter
 		    |->admin.html
+		    |->searcher.html
 		    |->usercenter.html
 ``` 
 
 #### continue:
 
 ```php
-    adding 'find back password'
-    adding 'user sercher in admin.html'
+    adding 'find back password by e-mail'
 ```

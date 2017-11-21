@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Searcher User</title>
+</head>
+<body>
+<table cellspacing="0" cellpadding="10" align="center" border="1" width="700">
+    <tr>
+        <th>Avatar</th>
+        <th>Name</th>
+        <th>ID</th>
+        <th>Deny</th>
+        <th>CreateAt</th>
+    </tr>
+    {volist name="list" id="infor"}
+    <tr>
+        <td align="center"><img src="../../../../../../public/uploads/{$infor.imgsrc}" width="60" height="60"></td>
+        <td align="center">{$infor.name}</td>
+        <td align="center">{$infor.userId}</td>
+        <td align="center">{$infor.deny}</td>
+        <td align="center">{$infor.createdAt|date='Y-m-d H:i:s',###}</td>
+    </tr>
+    {/volist}
+</table>
+<div align="center"><a href="{:url('index/setting/admincontrol')}">UserController</a></div>
+</body>
+</html>

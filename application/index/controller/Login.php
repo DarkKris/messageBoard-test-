@@ -16,6 +16,8 @@ class Login extends Controller
     #用户登录验证
     public function login()
     {
+        if(session('users.userId')!=null)
+            $this->success('You have logined !',url('messagelst'));
         $users = new Users;
         if(request()->isPost())//是否有post请求
         {
@@ -60,6 +62,7 @@ class Login extends Controller
             ->alias('users')//指定当前数据表的别名
             ->join('message message','users.userId = message.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
+            ->order('creatAt','desc')
             ->paginate($rows);
 
         $this->assign('list',$list);
@@ -84,6 +87,7 @@ class Login extends Controller
             ->alias('users')//指定当前数据表的别名
             ->where(array('name'=>$qname))
             ->join('message message','users.userId = message.userId')
+            ->order('creatAt','desc')
             ->paginate($rows);
         $queryid=Db::table('users')
             ->where(array('name'=>$qname))
@@ -158,6 +162,27 @@ class Login extends Controller
     {
         session(null);//将当前用户会话中的session变量设为null
         $this->success('Logout success !',url('login'));
+    }
+    #查找用户功能
+    public function search()
+    {
+        $condation=array();
+        if(input('post.username')!="")
+        {
+            $condation['name']=input('post.username');
+        }
+        if(input('post.userID')!="")
+        {
+            $condation['userId']=input('post.userID');
+        }
+        if(input('post.userDeny')!="")
+        {
+            $condation['deny']=input('post.userDeny');
+        }
+        $user = Db::table('users')->where($condation)->paginate(20);
+        ob_clean();
+        $this->assign('list',$user);
+        return view('usercenter/searcher');
     }
 }
 ?>

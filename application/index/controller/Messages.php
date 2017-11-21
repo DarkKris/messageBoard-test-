@@ -6,6 +6,7 @@
  * Time: 上午12:00
  */
 namespace app\index\controller;
+use app\index\Model\Addlike;
 use app\index\model\Comment;
 use think\Db;
 use think\controller;
@@ -30,14 +31,22 @@ class Messages extends Controller
         $us=Db::table('users')
             ->where(array('userId'=>session('users.userId')))
             ->find();
+        if($this->checklike($messageId)) $this->assign('liked',1);
+        else $this->assign('liked',0);
+        $msg=Db::table('message')
+            ->where(array('messageId'=>$messageId))
+            ->find();
         $rows=$us['pagrows'];
+        $this->assign('likenum',$msg['likeup']);
         $this->assign('messageId',$messageId);
+        $this->assign('content',$msg['content']);
         session('messageId',$messageId);
         $comlst=Db::table('users')
             ->alias('users')//指定当前数据表的别名
             ->where('messageId',$messageId)
             ->join('comment comment','users.userId = comment.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
+            ->order('createAt','asc')
             ->paginate($rows);
         $this->assign('comlst',$comlst);//assign()模板变量赋值
         if(request()->isPost())
@@ -58,7 +67,7 @@ class Messages extends Controller
                 $comment->userId=session('users.userId');
                 $message->msgcom()->save($comment);
                 session('messageId',null);
-                $this->success('Post success',url('login/messagelst'));
+                $this->success('Post success'/*,url('login/messagelst')*/);
             }
         }
         return view('message/comment');
@@ -91,6 +100,14 @@ class Messages extends Controller
             $this->error('Please login or login tourist firstly !',url('Login/login'));
         }
     }
+    #检测游客
+    public function checktourist()
+    {
+        if(session('users.userId')==2)
+        {
+            $this->error('You should login to use this function !');
+        }
+    }
     #修改留言-页面显示
     public function changemsg($messageId)
     {
@@ -102,9 +119,22 @@ class Messages extends Controller
         $this->assign('content',$message['content']);
         return view('message/changemsg');
     }
+    #修改评论-页面显示
+    public function changecom($commentId)
+    {
+        $this->isdeny();
+        $this->checkUser();
+        $this->checktourist();
+        session('comid',$commentId);
+        $comment=Db::name('comment')->where(array('commentId'=>$commentId))->find();
+        $this->assign('comid',$commentId);
+        $this->assign('content',$comment['content']);
+        return view('message/changecom');
+    }
     #修改留言
     public function changemessage()
     {
+        $this->checktourist();
         if(request()->isPost())
         {
             $msg = new Message;
@@ -112,28 +142,29 @@ class Messages extends Controller
             $result=$msg->where(array('messageId'=>session('msgid')))->setField(array('content'=>$content));
             if($result)
             {
+                unset($_SESSION['msgid']);
                 $this->success('Change success !',url('index/login/messagelst'));
             }else{
                 $this->error('Change fail !',url('changemsg'));
             }
-            unset($_SESSION['msgid']);
         }
     }
     #修改评论
     public function changecomment()
     {
+        $this->checktourist();
         if(request()->isPost())
         {
-            $msg = new Message;
+            $msg = new Comment;
             $content = input('post.words');
-            $result=$msg->where(array('messageId'=>session('msgid')))->setField(array('content'=>$content));
+            $result=$msg->where(array('commentId'=>session('comid')))->setField(array('content'=>$content));
             if($result)
             {
+                unset($_SESSION['msgid']);
                 $this->success('Change success !',url('index/login/messagelst'));
             }else{
-                $this->error('Change fail !',url('changemsg'));
+                $this->error('Change fail !');
             }
-            unset($_SESSION['msgid']);
         }
     }
     #删除留言
@@ -141,6 +172,7 @@ class Messages extends Controller
     {
         $this->isdeny();
         $this->checkUser();
+        $this->checktourist();
         $request=Request::instance();
         $id=$request->param('messageId');
         $result=Db::table('message')->delete($id);
@@ -156,15 +188,39 @@ class Messages extends Controller
     {
         $this->isdeny();
         $this->checkUser();
+        $this->checktourist();
         $request=Request::instance();
-        $id=$request->param('messageId');
-        $result=Db::table('message')->delete($id);
+        $id=$request->param('commentId');
+        $result=Db::table('comment')->delete($id);
         if($result>0)
         {
-            $this->success('Delete success',url('Login/messagelst'));
+            $this->success('Delete success');
         }else{
             $this->error('Delete fail');
         }
+    }
+    #留言点赞
+    public function likeit($mid)
+    {
+        $uid=session('users.userId');
+        $this->isdeny();
+        $this->checkUser();
+        $this->checktourist();
+        $likeinfo = new Addlike;
+        $likeinfo->userId = $uid;
+        $likeinfo->messageId = $mid;
+        $likeinfo->save();
+        $messageinfo=Db::table('message')->where('messageId',$mid)->find();
+        Db::table('message')->where('messageId',$mid)->setField('likeup',$messageinfo['likeup']+1);
+        $this->success('Add like success !');
+    }
+    #查看是否点过赞
+    public function checklike($mid)
+    {
+        $uid=session('users.userId');
+        $result=Db::table('addlike')->where(array('userId'=>$uid,'messageId'=>$mid))->find();
+        if($result) return true;
+        else return false;
     }
 }
 ?>
