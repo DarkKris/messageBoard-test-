@@ -87,6 +87,7 @@ class Login extends Controller
             ->alias('users')//指定当前数据表的别名
             ->where(array('name'=>$qname))
             ->join('message message','users.userId = message.userId')
+            ->order('creatAt','desc')
             ->paginate($rows);
         $queryid=Db::table('users')
             ->where(array('name'=>$qname))
@@ -181,7 +182,6 @@ class Login extends Controller
         $user = Db::table('users')->where($condation)->paginate(20);
         ob_clean();
         $this->assign('list',$user);
-//        return dump($list);
         return view('usercenter/searcher');
     }
 }

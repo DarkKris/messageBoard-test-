@@ -6,6 +6,7 @@
  * Time: 上午12:00
  */
 namespace app\index\controller;
+use app\index\Model\Addlike;
 use app\index\model\Comment;
 use think\Db;
 use think\controller;
@@ -27,14 +28,16 @@ class Messages extends Controller
     #为留言增加评论-view
     public function commsg($messageId)
     {
-        $this->isdeny();
         $us=Db::table('users')
             ->where(array('userId'=>session('users.userId')))
             ->find();
+        if($this->checklike($messageId)) $this->assign('liked',1);
+        else $this->assign('liked',0);
         $msg=Db::table('message')
             ->where(array('messageId'=>$messageId))
             ->find();
         $rows=$us['pagrows'];
+        $this->assign('likenum',$msg['likeup']);
         $this->assign('messageId',$messageId);
         $this->assign('content',$msg['content']);
         session('messageId',$messageId);
@@ -43,6 +46,7 @@ class Messages extends Controller
             ->where('messageId',$messageId)
             ->join('comment comment','users.userId = comment.userId')
             //join参数:要关联的数据表名或者别名;condition参数:关联条件;
+            ->order('createAt','asc')
             ->paginate($rows);
         $this->assign('comlst',$comlst);//assign()模板变量赋值
         if(request()->isPost())
@@ -96,6 +100,14 @@ class Messages extends Controller
             $this->error('Please login or login tourist firstly !',url('Login/login'));
         }
     }
+    #检测游客
+    public function checktourist()
+    {
+        if(session('users.userId')==2)
+        {
+            $this->error('You should login to use this function !');
+        }
+    }
     #修改留言-页面显示
     public function changemsg($messageId)
     {
@@ -112,6 +124,7 @@ class Messages extends Controller
     {
         $this->isdeny();
         $this->checkUser();
+        $this->checktourist();
         session('comid',$commentId);
         $comment=Db::name('comment')->where(array('commentId'=>$commentId))->find();
         $this->assign('comid',$commentId);
@@ -121,6 +134,7 @@ class Messages extends Controller
     #修改留言
     public function changemessage()
     {
+        $this->checktourist();
         if(request()->isPost())
         {
             $msg = new Message;
@@ -138,6 +152,7 @@ class Messages extends Controller
     #修改评论
     public function changecomment()
     {
+        $this->checktourist();
         if(request()->isPost())
         {
             $msg = new Comment;
@@ -157,6 +172,7 @@ class Messages extends Controller
     {
         $this->isdeny();
         $this->checkUser();
+        $this->checktourist();
         $request=Request::instance();
         $id=$request->param('messageId');
         $result=Db::table('message')->delete($id);
@@ -172,6 +188,7 @@ class Messages extends Controller
     {
         $this->isdeny();
         $this->checkUser();
+        $this->checktourist();
         $request=Request::instance();
         $id=$request->param('commentId');
         $result=Db::table('comment')->delete($id);
@@ -183,9 +200,27 @@ class Messages extends Controller
         }
     }
     #留言点赞
-    public function likeit($id)
+    public function likeit($mid)
     {
-
+        $uid=session('users.userId');
+        $this->isdeny();
+        $this->checkUser();
+        $this->checktourist();
+        $likeinfo = new Addlike;
+        $likeinfo->userId = $uid;
+        $likeinfo->messageId = $mid;
+        $likeinfo->save();
+        $messageinfo=Db::table('message')->where('messageId',$mid)->find();
+        Db::table('message')->where('messageId',$mid)->setField('likeup',$messageinfo['likeup']+1);
+        $this->success('Add like success !');
+    }
+    #查看是否点过赞
+    public function checklike($mid)
+    {
+        $uid=session('users.userId');
+        $result=Db::table('addlike')->where(array('userId'=>$uid,'messageId'=>$mid))->find();
+        if($result) return true;
+        else return false;
     }
 }
 ?>

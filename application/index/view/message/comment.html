@@ -13,6 +13,13 @@
     <tr>
         <td>
             {:$content}
+            <form action="{:url('index/Messages/likeit',array('mid'=>$messageId))}" method="post">
+            <div align="right">
+                Have been liked {:$likenum} times
+                <br>
+                <input type="submit" {eq name="liked" value="1"}value="Liked" disabled="disabled"{else/}value="Like"{/eq}>
+            </div>
+            </form>
         </td>
     </tr>
 </table>

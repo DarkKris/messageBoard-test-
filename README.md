@@ -21,10 +21,15 @@
 > Delete  
 > Change 
 > Comment 
+> Like  
 >  
-> **Admin:**  
+> **Admin:** (userId=3;password="admin")  
 > Delete others message  
 > User controller (include create user)  
+> Search user  
+>
+> **Tourist** (userId=2;no password)  
+> login
 
 ***
 
@@ -63,6 +68,5 @@ app\index
 #### continue:
 
 ```php
-    adding 'find back password'
-    adding 'like'
+    adding 'find back password by e-mail'
 ```
